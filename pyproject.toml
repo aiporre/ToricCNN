@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "toriccnn"
+dynamic = ["version"]
+description = "Pure-Python/PyTorch port of Toric CNN mesh segmentation (Maron et al., SIGGRAPH 2017)"
+readme = "README_PYTHON.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "scipy",
+    "torch",
+    "torchvision",
+    "trimesh",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+toriccnn-make-data = "toriccnn.data.make_data:main"
+toriccnn-train = "toriccnn.train:main"
+toriccnn-predict = "toriccnn.predict:main"
+toriccnn-aggregate = "toriccnn.aggregate:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "toriccnn.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["toriccnn*"]
+
+[tool.setuptools.package-data]
+"toriccnn.orbifold" = ["assets/*.off"]
